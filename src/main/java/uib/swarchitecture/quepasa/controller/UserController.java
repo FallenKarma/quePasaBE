@@ -30,7 +30,6 @@ public class UserController {
     // Create a new user
     @PostMapping
     public User createUser(@RequestBody User user) {
-        System.out.println("HOLAAA");
         return userRepository.save(user);
     }
 
