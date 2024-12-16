@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.config;
+package uib.swarchitecture.quepasa.domain.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +21,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated()
                 )
+                .csrf(csrf -> csrf.disable()) // temporal
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+                .username("admin")
+                .password("{noop}password") // {noop} indica que no se aplicará codificación a la contraseña
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
 
 }
