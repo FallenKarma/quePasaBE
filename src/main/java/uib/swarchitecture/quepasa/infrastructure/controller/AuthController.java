@@ -3,6 +3,8 @@ package uib.swarchitecture.quepasa.infrastructure.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 import uib.swarchitecture.quepasa.domain.exceptions.EmailAlreadyExistsException;
@@ -16,7 +18,7 @@ import uib.swarchitecture.quepasa.infrastructure.controller.utils.ApiResponse;
 @RequestMapping("/auth")
 public class AuthController {
 
-    AuthService authService;
+    private final AuthService authService;
 
     @Autowired
     public AuthController(AuthService authService) {
@@ -41,13 +43,39 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<Token>> login(@RequestBody User user) {
-        authService.login(user);
-        return null;
+    public ResponseEntity<ApiResponse<Token>> authenticate(@RequestBody User user) {
+        try {
+            // Llamar al servicio de autenticación
+            Token createdToken = authService.authenticate(user);
+
+            // Retornar el token con código 200 (OK)
+            return new ResponseEntity<>(new ApiResponse<>(createdToken), HttpStatus.OK);
+        } catch (BadCredentialsException e) {
+            // Manejar cuando las credenciales no son correctas
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.UNAUTHORIZED);
+        } catch(Exception e) {
+            // Manejar otras excepciones
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse<Token>> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication) {
-        return null;
+        try {
+            // Llamar al servicio de refresco de token
+            Token createdToken = authService.refreshToken(authentication);
+
+            // Retornar el token renovado con código 200 (OK)
+            return new ResponseEntity<>(new ApiResponse<>(createdToken), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            // Manejar cuando el usuario no existe o ha expirado el token
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.UNAUTHORIZED);
+        } catch (IllegalArgumentException e) {
+            // Manejar cuando el token no es válido
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch(Exception e) {
+            // Manejar otras excepciones
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
