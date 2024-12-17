@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserPort userPort;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserPort userPort;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(UserPort userPort, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -48,6 +48,16 @@ public class UserService {
 
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("Username " + username + " not found");
+        }
+
+        return userOptional.get();
+    }
+
+    public User getUserById(long id) {
+        Optional<User> userOptional = userPort.getUserById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new UsernameNotFoundException("User " + id + " not found");
         }
 
         return userOptional.get();

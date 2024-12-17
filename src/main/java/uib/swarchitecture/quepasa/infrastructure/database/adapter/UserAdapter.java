@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class UserAdapter implements UserPort {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserAdapter(UserRepository userRepository) {
@@ -60,5 +60,17 @@ public class UserAdapter implements UserPort {
                         .email(userJPA.getEmail())
                         .password(userJPA.getPassword())
                         .build());
+    }
+
+    @Override
+    public Optional<User> getUserById(long id) {
+        Optional<UserJPA> userJPAOptional = userRepository.findById(id);
+
+        return userJPAOptional.map(userJPA -> User.builder()
+                .id(userJPA.getId())
+                .username(userJPA.getUsername())
+                .email(userJPA.getEmail())
+                .password(userJPA.getPassword())
+                .build());
     }
 }
