@@ -7,6 +7,8 @@ import uib.swarchitecture.quepasa.domain.port.UserPort;
 import uib.swarchitecture.quepasa.infrastructure.database.model.UserJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.UserRepository;
 
+import java.util.Optional;
+
 @Component
 public class UserAdapter implements UserPort {
 
@@ -45,5 +47,18 @@ public class UserAdapter implements UserPort {
                 .email(savedUserJPA.getEmail())
                 .password(savedUserJPA.getPassword())
                 .build();
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        Optional<UserJPA> userJPAOptional = userRepository.findByUsername(username);
+
+        return userJPAOptional
+                .map(userJPA -> User.builder()
+                        .id(userJPA.getId())
+                        .username(userJPA.getUsername())
+                        .email(userJPA.getEmail())
+                        .password(userJPA.getPassword())
+                        .build());
     }
 }

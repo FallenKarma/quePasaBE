@@ -9,4 +9,5 @@ public interface UserPort {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public User addUser(User user);
+    public Optional<User> getUserByUsername(String username);
 }
