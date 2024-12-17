@@ -1,6 +1,7 @@
 package uib.swarchitecture.quepasa.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import uib.swarchitecture.quepasa.domain.exceptions.EmailAlreadyExistsException;
 import uib.swarchitecture.quepasa.domain.exceptions.UsernameAlreadyExistsException;
@@ -11,10 +12,12 @@ import uib.swarchitecture.quepasa.domain.port.UserPort;
 public class UserService {
 
     private UserPort userPort;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserPort userPort) {
+    public UserService(UserPort userPort, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userPort = userPort;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public User addUser(User user) {
@@ -25,6 +28,10 @@ public class UserService {
         if (userPort.existsByUsername(user.getUsername())) {
             throw new UsernameAlreadyExistsException(user.getUsername());
         }
+
+        // Cifrar la contraseña antes de guardarla
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
         try {
             return userPort.addUser(user);

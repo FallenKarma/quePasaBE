@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -28,14 +29,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
+    public UserDetailsService userDetailsService(BCryptPasswordEncoder passwordEncoder) {
+        // Aquí se usa BCrypt para cifrar la contraseña
         UserDetails user = User.builder()
                 .username("admin")
-                .password("{noop}password") // {noop} indica que no se aplicará codificación a la contraseña
+                .password(passwordEncoder.encode("password")) // Cifrado de la contraseña con BCrypt
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
 
-
+    // Crear un bean para BCryptPasswordEncoder
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
