@@ -1,8 +1,8 @@
-package uib.swarchitecture.quepasa.infrastructure.database.model;
+package uib.swarchitecture.quepasa.infrastructure.database.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import uib.swarchitecture.quepasa.infrastructure.database.model.enums.ChatTypeJPA;
+import uib.swarchitecture.quepasa.infrastructure.database.models.enums.ChatTypeJPA;
 
 import java.util.List;
 

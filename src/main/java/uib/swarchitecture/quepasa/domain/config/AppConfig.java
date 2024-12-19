@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import uib.swarchitecture.quepasa.domain.model.User;
-import uib.swarchitecture.quepasa.domain.service.UserService;
+import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.services.UserService;
 
 @Configuration
 @EnableWebSecurity

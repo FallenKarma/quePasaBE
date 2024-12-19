@@ -1,10 +1,10 @@
-package uib.swarchitecture.quepasa.infrastructure.database.adapter;
+package uib.swarchitecture.quepasa.infrastructure.database.adapters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uib.swarchitecture.quepasa.domain.model.User;
-import uib.swarchitecture.quepasa.domain.port.UserPort;
-import uib.swarchitecture.quepasa.infrastructure.database.model.UserJPA;
+import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.ports.UserPort;
+import uib.swarchitecture.quepasa.infrastructure.database.models.UserJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.UserRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.infrastructure.controller;
+package uib.swarchitecture.quepasa.infrastructure.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 import uib.swarchitecture.quepasa.domain.exceptions.EmailAlreadyExistsException;
 import uib.swarchitecture.quepasa.domain.exceptions.UsernameAlreadyExistsException;
-import uib.swarchitecture.quepasa.domain.model.Token;
-import uib.swarchitecture.quepasa.domain.model.User;
-import uib.swarchitecture.quepasa.domain.service.AuthService;
-import uib.swarchitecture.quepasa.infrastructure.controller.utils.ApiResponse;
+import uib.swarchitecture.quepasa.domain.models.Token;
+import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.services.AuthService;
+import uib.swarchitecture.quepasa.infrastructure.controllers.utils.ApiResponse;
 
 @RestController
 @RequestMapping("/auth")

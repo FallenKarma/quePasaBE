@@ -1,7 +1,7 @@
 package uib.swarchitecture.quepasa.infrastructure.database.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import uib.swarchitecture.quepasa.infrastructure.database.model.UserJPA;
+import uib.swarchitecture.quepasa.infrastructure.database.models.UserJPA;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package uib.swarchitecture.quepasa.domain.model;
+package uib.swarchitecture.quepasa.domain.models;
 
-import uib.swarchitecture.quepasa.domain.model.enums.MessageType;
+import uib.swarchitecture.quepasa.domain.models.enums.MessageType;
 
 import java.time.LocalDateTime;
 

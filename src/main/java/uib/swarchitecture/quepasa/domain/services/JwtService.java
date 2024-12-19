@@ -1,12 +1,12 @@
-package uib.swarchitecture.quepasa.domain.service;
+package uib.swarchitecture.quepasa.domain.services;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import uib.swarchitecture.quepasa.domain.model.Token;
-import uib.swarchitecture.quepasa.domain.model.User;
+import uib.swarchitecture.quepasa.domain.models.Token;
+import uib.swarchitecture.quepasa.domain.models.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;

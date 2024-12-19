@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.domain.service;
+package uib.swarchitecture.quepasa.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -6,8 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import uib.swarchitecture.quepasa.domain.exceptions.EmailAlreadyExistsException;
 import uib.swarchitecture.quepasa.domain.exceptions.UsernameAlreadyExistsException;
-import uib.swarchitecture.quepasa.domain.model.User;
-import uib.swarchitecture.quepasa.domain.port.UserPort;
+import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.ports.UserPort;
 
 import java.util.Optional;
 

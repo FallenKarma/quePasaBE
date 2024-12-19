@@ -1,8 +1,8 @@
-package uib.swarchitecture.quepasa.infrastructure.controller;
+package uib.swarchitecture.quepasa.infrastructure.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uib.swarchitecture.quepasa.domain.service.UserService;
+import uib.swarchitecture.quepasa.domain.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")

@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.domain.model;
+package uib.swarchitecture.quepasa.domain.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

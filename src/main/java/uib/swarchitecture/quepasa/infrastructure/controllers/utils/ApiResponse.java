@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.infrastructure.controller.utils;
+package uib.swarchitecture.quepasa.infrastructure.controllers.utils;
 
 import lombok.Getter;
 

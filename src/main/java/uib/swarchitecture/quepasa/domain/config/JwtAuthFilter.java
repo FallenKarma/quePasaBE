@@ -15,9 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import uib.swarchitecture.quepasa.domain.model.User;
-import uib.swarchitecture.quepasa.domain.service.JwtService;
-import uib.swarchitecture.quepasa.domain.service.UserService;
+import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.services.JwtService;
+import uib.swarchitecture.quepasa.domain.services.UserService;
 
 import java.io.IOException;
 

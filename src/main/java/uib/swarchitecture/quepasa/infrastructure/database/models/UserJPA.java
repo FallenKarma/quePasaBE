@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.infrastructure.database.model;
+package uib.swarchitecture.quepasa.infrastructure.database.models;
 
 import jakarta.persistence.*;
 import java.util.List;

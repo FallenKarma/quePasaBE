@@ -1,6 +1,6 @@
-package uib.swarchitecture.quepasa.domain.port;
+package uib.swarchitecture.quepasa.domain.ports;
 
-import uib.swarchitecture.quepasa.domain.model.User;
+import uib.swarchitecture.quepasa.domain.models.User;
 
 import java.util.Optional;
 
