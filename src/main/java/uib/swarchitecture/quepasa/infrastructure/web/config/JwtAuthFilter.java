@@ -1,4 +1,4 @@
-package uib.swarchitecture.quepasa.domain.config;
+package uib.swarchitecture.quepasa.infrastructure.web.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -16,8 +16,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import uib.swarchitecture.quepasa.domain.models.User;
-import uib.swarchitecture.quepasa.domain.services.JwtService;
 import uib.swarchitecture.quepasa.domain.services.UserService;
+import uib.swarchitecture.quepasa.infrastructure.web.services.JwtService;
 
 import java.io.IOException;
 

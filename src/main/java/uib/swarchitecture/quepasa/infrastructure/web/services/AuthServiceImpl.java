@@ -1,12 +1,13 @@
-package uib.swarchitecture.quepasa.domain.services;
+package uib.swarchitecture.quepasa.infrastructure.web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
-import uib.swarchitecture.quepasa.domain.models.Token;
+import uib.swarchitecture.quepasa.infrastructure.web.models.Token;
 import uib.swarchitecture.quepasa.domain.models.User;
+import uib.swarchitecture.quepasa.domain.services.UserService;
 
 @Service
 public class AuthServiceImpl implements AuthService{

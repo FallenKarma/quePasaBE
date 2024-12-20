@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class CyptConfig {
+public class CryptConfig {
     // Crear un bean para BCryptPasswordEncoder
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

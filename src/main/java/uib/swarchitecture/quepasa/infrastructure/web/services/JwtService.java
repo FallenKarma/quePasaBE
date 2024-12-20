@@ -1,6 +1,6 @@
-package uib.swarchitecture.quepasa.domain.services;
+package uib.swarchitecture.quepasa.infrastructure.web.services;
 
-import uib.swarchitecture.quepasa.domain.models.Token;
+import uib.swarchitecture.quepasa.infrastructure.web.models.Token;
 import uib.swarchitecture.quepasa.domain.models.User;
 
 import java.util.Date;
