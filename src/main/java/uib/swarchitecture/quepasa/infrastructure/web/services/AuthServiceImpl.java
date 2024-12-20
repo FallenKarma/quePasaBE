@@ -65,10 +65,6 @@ public class AuthServiceImpl implements AuthService{
         }
 
         // Devolver token del usuario
-        String accessToken = jwtService.generateAccessToken(user);
-        return Token.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return jwtService.generateToken(user);
     }
 }
