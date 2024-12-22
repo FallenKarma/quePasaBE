@@ -1,11 +1,11 @@
-package uib.swarchitecture.quepasa.infrastructure.controllers.utils;
+package uib.swarchitecture.quepasa.infrastructure.web.controllers.utils;
 
 import lombok.Getter;
 
 @Getter
 public class ApiResponse<T> {
-    private T data;
-    private String errorMessage;
+    private final T data;
+    private final String errorMessage;
 
     public ApiResponse(T data) {
         this.data = data;
