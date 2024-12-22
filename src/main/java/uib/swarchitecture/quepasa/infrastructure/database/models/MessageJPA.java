@@ -31,6 +31,10 @@ public class MessageJPA {
     private MessageTypeJPA type;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "chat_id", nullable = false)
+    private ChatJPA chat;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id", nullable = false)
     private UserJPA author;
 
