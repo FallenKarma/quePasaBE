@@ -26,6 +26,9 @@ public class ChatJPA {
     @Column(nullable = false)
     private ChatTypeJPA type;
 
+    @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
+    private List<MessageJPA> messages;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="participate",
