@@ -8,6 +8,7 @@ import uib.swarchitecture.quepasa.domain.models.UserChat;
 import uib.swarchitecture.quepasa.domain.ports.AuthPort;
 import uib.swarchitecture.quepasa.domain.ports.ChatPort;
 import uib.swarchitecture.quepasa.domain.ports.MessagePort;
+import uib.swarchitecture.quepasa.infrastructure.web.models.CreateChatRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +61,12 @@ public class ChatServiceImpl implements ChatService {
         // Ordenar chats por fecha del último mensaje
         userChats.sort(null);
         return userChats;
+    }
+
+    @Override
+    public boolean createChat( CreateChatRequest request ) {
+
+
+        return chatPort.addChat(request.getAdminId(),request.getUsersId(), request.getName(), request.getType());
     }
 }

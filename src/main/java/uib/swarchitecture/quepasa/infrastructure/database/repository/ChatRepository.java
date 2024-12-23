@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ChatRepository extends CrudRepository<ChatJPA, Long> {
     List<ChatJPA> findByParticipants_Id(long userId);
+
 }

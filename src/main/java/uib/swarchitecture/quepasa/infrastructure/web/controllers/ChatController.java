@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uib.swarchitecture.quepasa.domain.models.UserChat;
 import uib.swarchitecture.quepasa.domain.services.ChatService;
 import uib.swarchitecture.quepasa.infrastructure.web.controllers.utils.ApiResponse;
+import uib.swarchitecture.quepasa.infrastructure.web.models.CreateChatRequest;
 
 import java.util.List;
 
@@ -38,4 +36,22 @@ public class ChatController {
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<UserChat>> createUserChat(@RequestBody final CreateChatRequest request,@RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication) {
+        try {
+            boolean reponse =chatService.createChat(authentication, request);
+            if(reponse) {
+
+                return new ResponseEntity<>(new ApiResponse<>(""), HttpStatus.OK);
+            }
+            else{return new ResponseEntity<>(new ApiResponse<>("Server couldn't create the chat"), HttpStatus.BAD_REQUEST);}
+
+
+        }catch (Exception e) {
+            // Manejar otras excepciones
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

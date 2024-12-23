@@ -9,4 +9,5 @@ public interface UserRepository extends CrudRepository<UserJPA, Long> {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public Optional<UserJPA> findByUsername(String username);
+
 }

@@ -10,20 +10,24 @@ import uib.swarchitecture.quepasa.infrastructure.database.models.UserJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.models.enums.ChatTypeJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.ChatRepository;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.MessageRepository;
+import uib.swarchitecture.quepasa.infrastructure.database.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ChatAdapter implements ChatPort {
 
     private final ChatRepository chatRepository;
     private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ChatAdapter(ChatRepository chatRepository, MessageRepository messageRepository) {
+    public ChatAdapter(ChatRepository chatRepository, MessageRepository messageRepository, UserRepository userRepository) {
         this.chatRepository = chatRepository;
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -66,5 +70,55 @@ public class ChatAdapter implements ChatPort {
                 .map(UserJPA::getUsername)
                 .orElseThrow(() -> new IllegalArgumentException("No other participant found in the direct chat with ID " + chatId));
     }
+
+    @Override
+    public boolean addChat(List<Long> adminIds, List<Long> participantsId, String chatName, ChatType chatType) {
+        ChatJPA chat = new ChatJPA();
+        List<UserJPA> participants = new ArrayList<>();
+        List<UserJPA> admins = new ArrayList<>();
+
+        // Llenar lista de participantes
+        for (Long participantId : participantsId) {
+            Optional<UserJPA> userOptional = userRepository.findById(participantId);
+            if (userOptional.isPresent()) {
+                participants.add(userOptional.get());
+            } else {
+                throw new IllegalArgumentException("Usuario participante con ID " + participantId + " no encontrado.");
+            }
+        }
+
+        // Llenar lista de administradores
+        for (Long adminId : adminIds) {
+            Optional<UserJPA> userOptional = userRepository.findById(adminId);
+            if (userOptional.isPresent()) {
+                admins.add(userOptional.get());
+            } else {
+                throw new IllegalArgumentException("Usuario administrador con ID " + adminId + " no encontrado.");
+            }
+        }
+
+        // Configurar los datos del chat
+        chat.setParticipants(participants); // Asignar los participantes
+        chat.setAdmins(admins);             // Asignar los administradores (debes tener este atributo en ChatJPA)
+        chat.setName(chatName);         // Asignar el nombre del chat
+        chat.setType(convertToChatTypeJPA(chatType));         // Asignar el tipo de chat
+
+        // Guardar el chat en la base de datos
+        chatRepository.save(chat);
+
+        return true;
+    }
+
+    public ChatTypeJPA convertToChatTypeJPA(ChatType chatType) {
+        switch (chatType) {
+            case DIRECT:
+                return ChatTypeJPA.DIRECT;
+            case GROUP:
+                return ChatTypeJPA.GROUP;
+            default:
+                throw new IllegalArgumentException("Tipo de chat desconocido: " + chatType);
+        }
+    }
+
 
 }
