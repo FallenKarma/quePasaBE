@@ -64,9 +64,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean createChat( CreateChatRequest request ) {
+    public boolean createChat( CreateChatRequest request,String authentication ) {
 
 
-        return chatPort.addChat(request.getAdminId(),request.getUsersId(), request.getName(), request.getType());
+        return chatPort.addChat(authPort.getIdFromAuthentication(authentication),request.getUsersId(), request.getName(), request.getType());
     }
 }

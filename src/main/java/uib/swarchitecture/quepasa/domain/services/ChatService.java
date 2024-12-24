@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ChatService {
     List<UserChat> getUserChats(String authentication);
-    boolean createChat(CreateChatRequest createChatRequest);
+    boolean createChat(CreateChatRequest createChatRequest,String authentication);
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString  // Lombok genera getters, setters, toString y constructor sin parametros
 @EqualsAndHashCode(of = "id")  // Solo usa 'id' para equals y hashCode
+
 public class ChatJPA {
 
     @Id
@@ -44,4 +45,6 @@ public class ChatJPA {
             inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false)
     )
     private List<UserJPA> admins;
+
+
 }

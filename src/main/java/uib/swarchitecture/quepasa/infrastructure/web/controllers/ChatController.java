@@ -40,7 +40,7 @@ public class ChatController {
     @PostMapping
     public ResponseEntity<ApiResponse<UserChat>> createUserChat(@RequestBody final CreateChatRequest request,@RequestHeader(HttpHeaders.AUTHORIZATION) final String authentication) {
         try {
-            boolean reponse =chatService.createChat(authentication, request);
+            boolean reponse =chatService.createChat(request,authentication);
             if(reponse) {
 
                 return new ResponseEntity<>(new ApiResponse<>(""), HttpStatus.OK);

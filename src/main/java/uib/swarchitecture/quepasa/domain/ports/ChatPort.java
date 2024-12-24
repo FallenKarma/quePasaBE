@@ -10,6 +10,6 @@ public interface ChatPort {
     List<Chat> getUserChats(long id);
     int getUnreadMessages(long userId, long chatId);
     String getChatName(long userId, long chatId);
-    boolean addChat(List<Long> adminIds, List<Long> participantsId, String chatName, ChatType chatType);
+    boolean addChat(Long adminId, List<Long> participantsId, String chatName, ChatType chatType);
     // ChatUser[] getUserChats(long id);
 }
