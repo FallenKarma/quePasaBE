@@ -11,25 +11,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor // Genera un constructor sin argumentos
 @AllArgsConstructor // Genera un constructor con todos los campos
 @Builder // Genera el patrón builder
-public class UserChat implements Comparable<UserChat>{
+public class UserChat implements Comparable<UserChat> {
     private long id;
     private String name;
     private int unreadMessages;
-    private LocalDateTime lastMessageTimestamp;
+    private LocalDateTime lastActionTimestamp;
 
 
     @Override
     public int compareTo(UserChat other) {
-        if (this.lastMessageTimestamp == null && other.lastMessageTimestamp == null) {
+        if (this.lastActionTimestamp == null && other.lastActionTimestamp == null) {
             return 0;
         }
-        if (this.lastMessageTimestamp == null) {
+        if (this.lastActionTimestamp == null) {
             return 1;  // Si el mensaje de este ChatUser es null, va después
         }
-        if (other.lastMessageTimestamp == null) {
+        if (other.lastActionTimestamp == null) {
             return -1; // Si el mensaje del otro ChatUser es null, va después
         }
 
-        return other.lastMessageTimestamp.compareTo(this.lastMessageTimestamp); // Orden descendente
+        return other.lastActionTimestamp.compareTo(this.lastActionTimestamp); // Orden descendente
     }
 }
