@@ -8,12 +8,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "chat")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString  // Lombok genera getters, setters, toString y constructor sin parametros
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString  // Lombok genera getters, setters, toString y constructor sin parametros
 @EqualsAndHashCode(of = "id")  // Solo usa 'id' para equals y hashCode
-
+@Builder
 public class ChatJPA {
 
     @Id

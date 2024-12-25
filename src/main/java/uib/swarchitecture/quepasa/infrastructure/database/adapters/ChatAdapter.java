@@ -6,7 +6,6 @@ import uib.swarchitecture.quepasa.domain.models.Chat;
 import uib.swarchitecture.quepasa.domain.models.enums.ChatType;
 import uib.swarchitecture.quepasa.domain.ports.ChatPort;
 import uib.swarchitecture.quepasa.infrastructure.database.models.ChatJPA;
-import uib.swarchitecture.quepasa.infrastructure.database.models.ChatJPABuilder;
 import uib.swarchitecture.quepasa.infrastructure.database.models.UserJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.models.enums.ChatTypeJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.ChatRepository;
@@ -95,20 +94,18 @@ public class ChatAdapter implements ChatPort {
             throw new IllegalArgumentException("Administrator user with ID " + adminId + " not found.");
         }
 
-        // Create the ChatJPA instance using the Builder pattern
-        ChatJPA chat = new ChatJPABuilder()
+        // Crear el objeto ChatJPA
+        ChatJPA chat = ChatJPA.builder()
                 .name(chatName)
-                .type(ChatTypeJPA.GROUP)
+                .type(chatType == ChatType.DIRECT ? ChatTypeJPA.DIRECT : ChatTypeJPA.GROUP)
                 .participants(participants)
                 .admins(admins)
-                .build();                                // Build the object
+                .build();
 
         // Save the chat in the database
         chatRepository.save(chat);
 
         return true;
     }
-
-
 
 }
