@@ -88,13 +88,14 @@ public class ChatServiceImpl implements ChatService {
             throw new IllegalArgumentException("Participants list is empty");
         } else if (chatType == null) {
             throw new IllegalArgumentException("Chat type is null");
-        } else if (chatType == ChatType.DIRECT && participantIds.size() != 2) {
+        } else if (chatType == ChatType.DIRECT && participantIds.size() != 1) {
             throw new IllegalArgumentException("Direct chat must have exactly one participant");
         } else if (chatType == ChatType.GROUP && (chatName == null || chatName.isEmpty())) {
             throw new IllegalArgumentException("Group chat must have a name");
         }
 
         // Crear el chat
+        participantIds.add(adminId);
         Optional<Long> optionalId = chatPort.addChat(adminId, participantIds, chatName, chatType);
 
         // Verificar si se ha creado el chat
