@@ -12,6 +12,7 @@ import uib.swarchitecture.quepasa.infrastructure.database.repository.ChatReposit
 import uib.swarchitecture.quepasa.infrastructure.database.repository.MessageRepository;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,10 +72,23 @@ public class ChatAdapter implements ChatPort {
                 .orElseThrow(() -> new IllegalArgumentException("No other participant found in the direct chat with ID " + chatId));
     }
 
+    public LocalDateTime getChatCreationTimestamp(long chatId) {
+        // Obtener el chat
+        ChatJPA chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new IllegalArgumentException("Chat with ID " + chatId + " not found"));
+
+        // Devolver la fecha de creación del chat
+        return chat.getCreatedAt();
+    }
+
+
     @Override
     public Optional<Long> addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType) {
         List<UserJPA> participants = new ArrayList<>();
         List<UserJPA> admins = new ArrayList<>();
+
+        // Obtener fecha de creación
+        LocalDateTime createdAt = LocalDateTime.now();
 
         // Añadir los participantes al chat
         for (Long participantId : participantIds) {
@@ -98,6 +112,7 @@ public class ChatAdapter implements ChatPort {
         ChatJPA chat = ChatJPA.builder()
                 .name(chatName)
                 .type(chatType == ChatType.DIRECT ? ChatTypeJPA.DIRECT : ChatTypeJPA.GROUP)
+                .createdAt(createdAt)
                 .participants(participants)
                 .admins(admins)
                 .build();

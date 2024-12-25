@@ -11,6 +11,7 @@ import uib.swarchitecture.quepasa.domain.ports.ChatPort;
 import uib.swarchitecture.quepasa.domain.ports.MessagePort;
 import uib.swarchitecture.quepasa.infrastructure.web.models.CreateChatRequest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -50,12 +51,18 @@ public class ChatServiceImpl implements ChatService {
             // Obtener último mensaje del chat
             Message lastMessage = messagePort.getLastMessage(chat.getId()).orElse(null);
 
+            // Obtener momento de creación del chat
+            LocalDateTime createdAt = chatPort.getChatCreationTimestamp(chat.getId());
+
+            // Obtener momento de la última acción en el chat
+            LocalDateTime lastAction = lastMessage != null ? lastMessage.getTimestamp() : createdAt;
+
             // Crear UserChat
             UserChat userChat = UserChat.builder()
                     .id(chat.getId())
                     .name(name)
                     .unreadMessages(unreadMessages)
-                    .lastMessageTimestamp(lastMessage != null ? lastMessage.getTimestamp() : null)
+                    .lastActionTimestamp(lastAction)
                     .build();
 
             userChats.add(userChat);
@@ -94,13 +101,17 @@ public class ChatServiceImpl implements ChatService {
         if (optionalId.isEmpty()) {
             throw new NoSuchElementException("Chat could not be created");
         }
+        Long chatId = optionalId.get();
+
+        // Obtener fecha de creación
+        LocalDateTime createdAt = chatPort.getChatCreationTimestamp(chatId);
 
         // Devolver el chat creado
         return UserChat.builder()
-                .id(optionalId.get())
+                .id(chatId)
                 .name(chatName)
                 .unreadMessages(0)
-                .lastMessageTimestamp(null)
+                .lastActionTimestamp(createdAt)
                 .build();
     }
 }
