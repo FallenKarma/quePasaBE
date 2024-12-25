@@ -92,6 +92,8 @@ public class ChatServiceImpl implements ChatService {
             throw new IllegalArgumentException("Direct chat must have exactly one participant");
         } else if (chatType == ChatType.GROUP && (chatName == null || chatName.isEmpty())) {
             throw new IllegalArgumentException("Group chat must have a name");
+        } else if (participantIds.contains(adminId)) {
+            throw new IllegalArgumentException("Admin cannot be a participant");
         }
 
         // Crear el chat
