@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public class ChatServiceImpl implements ChatService {
 
-    private AuthPort authPort;
-    private ChatPort chatPort;
-    private MessagePort messagePort;
+    private final AuthPort authPort;
+    private final ChatPort chatPort;
+    private final MessagePort messagePort;
 
     @Autowired
     public ChatServiceImpl(AuthPort authPort, ChatPort chatPort, MessagePort messagePort) {
@@ -70,16 +70,16 @@ public class ChatServiceImpl implements ChatService {
         Long adminId = authPort.getIdFromAuthentication(authentication);
 
         // Obtener datos de la petición
-        List<Long> participantsId = request.getUsersId();
+        List<Long> participantIds = request.getUserIds();
         String chatName = request.getName();
         ChatType chatType = request.getType();
 
         // Verificar los datos de la petición
-        if (participantsId == null || participantsId.isEmpty()) {
+        if (participantIds == null || participantIds.isEmpty()) {
             throw new IllegalArgumentException("Participants list is empty");
         } else if (chatType == null) {
             throw new IllegalArgumentException("Chat type is null");
-        } else if (chatType == ChatType.DIRECT && participantsId.size() != 2) {
+        } else if (chatType == ChatType.DIRECT && participantIds.size() != 2) {
             throw new IllegalArgumentException("Direct chat must have exactly one participant");
         } else if (chatType == ChatType.GROUP && (chatName == null || chatName.isEmpty())) {
             throw new IllegalArgumentException("Group chat must have a name");
@@ -87,7 +87,7 @@ public class ChatServiceImpl implements ChatService {
 
         // Crear el chat
         try {
-            boolean response = chatPort.addChat(adminId, participantsId, chatName, chatType);
+            boolean response = chatPort.addChat(adminId, participantIds, chatName, chatType);
             return response;
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Server couldn't create the chat");

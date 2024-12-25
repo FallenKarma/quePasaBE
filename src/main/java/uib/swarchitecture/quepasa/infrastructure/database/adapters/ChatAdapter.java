@@ -72,12 +72,12 @@ public class ChatAdapter implements ChatPort {
     }
 
     @Override
-    public boolean addChat(Long adminId, List<Long> participantsId, String chatName, ChatType chatType) {
+    public boolean addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType) {
         List<UserJPA> participants = new ArrayList<>();
         List<UserJPA> admins = new ArrayList<>();
 
         // Populate the list of participants
-        for (Long participantId : participantsId) {
+        for (Long participantId : participantIds) {
             Optional<UserJPA> userOptional = userRepository.findById(participantId);
             if (userOptional.isPresent()) {
                 participants.add(userOptional.get());
