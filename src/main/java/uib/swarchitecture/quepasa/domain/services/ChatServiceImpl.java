@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uib.swarchitecture.quepasa.domain.models.Chat;
 import uib.swarchitecture.quepasa.domain.models.Message;
 import uib.swarchitecture.quepasa.domain.models.UserChat;
+import uib.swarchitecture.quepasa.domain.models.enums.ChatType;
 import uib.swarchitecture.quepasa.domain.ports.AuthPort;
 import uib.swarchitecture.quepasa.domain.ports.ChatPort;
 import uib.swarchitecture.quepasa.domain.ports.MessagePort;
@@ -64,9 +65,32 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean createChat( CreateChatRequest request,String authentication ) {
+    public boolean createChat(CreateChatRequest request, String authentication) {
+        // Obtener id del usuario administrador
+        Long adminId = authPort.getIdFromAuthentication(authentication);
 
+        // Obtener datos de la petición
+        List<Long> participantsId = request.getUsersId();
+        String chatName = request.getName();
+        ChatType chatType = request.getType();
 
-        return chatPort.addChat(authPort.getIdFromAuthentication(authentication),request.getUsersId(), request.getName(), request.getType());
+        // Verificar los datos de la petición
+        if (participantsId == null || participantsId.isEmpty()) {
+            throw new IllegalArgumentException("Participants list is empty");
+        } else if (chatType == null) {
+            throw new IllegalArgumentException("Chat type is null");
+        } else if (chatType == ChatType.DIRECT && participantsId.size() != 2) {
+            throw new IllegalArgumentException("Direct chat must have exactly one participant");
+        } else if (chatType == ChatType.GROUP && (chatName == null || chatName.isEmpty())) {
+            throw new IllegalArgumentException("Group chat must have a name");
+        }
+
+        // Crear el chat
+        try {
+            boolean response = chatPort.addChat(adminId, participantsId, chatName, chatType);
+            return response;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Server couldn't create the chat");
+        }
     }
 }
