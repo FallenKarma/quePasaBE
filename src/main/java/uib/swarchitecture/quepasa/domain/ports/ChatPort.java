@@ -4,6 +4,7 @@ import uib.swarchitecture.quepasa.domain.models.Chat;
 import uib.swarchitecture.quepasa.domain.models.enums.ChatType;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChatPort {
     List<Chat> getUserChats(long id);
@@ -12,5 +13,5 @@ public interface ChatPort {
 
     String getChatName(long userId, long chatId);
 
-    boolean addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType);
+    Optional<Long> addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType);
 }

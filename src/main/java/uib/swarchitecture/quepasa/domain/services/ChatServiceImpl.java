@@ -13,6 +13,8 @@ import uib.swarchitecture.quepasa.infrastructure.web.models.CreateChatRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -65,14 +67,14 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean createChat(CreateChatRequest request, String authentication) {
+    public UserChat createChat(CreateChatRequest request, String authentication) {
         // Obtener id del usuario administrador
         Long adminId = authPort.getIdFromAuthentication(authentication);
 
         // Obtener datos de la petición
         List<Long> participantIds = request.getUserIds();
-        String chatName = request.getName();
         ChatType chatType = request.getType();
+        String chatName = chatType == ChatType.GROUP ? request.getName() : null;
 
         // Verificar los datos de la petición
         if (participantIds == null || participantIds.isEmpty()) {
@@ -86,11 +88,19 @@ public class ChatServiceImpl implements ChatService {
         }
 
         // Crear el chat
-        try {
-            boolean response = chatPort.addChat(adminId, participantIds, chatName, chatType);
-            return response;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Server couldn't create the chat");
+        Optional<Long> optionalId = chatPort.addChat(adminId, participantIds, chatName, chatType);
+
+        // Verificar si se ha creado el chat
+        if (optionalId.isEmpty()) {
+            throw new NoSuchElementException("Chat could not be created");
         }
+
+        // Devolver el chat creado
+        return UserChat.builder()
+                .id(optionalId.get())
+                .name(chatName)
+                .unreadMessages(0)
+                .lastMessageTimestamp(null)
+                .build();
     }
 }

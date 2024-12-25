@@ -72,26 +72,26 @@ public class ChatAdapter implements ChatPort {
     }
 
     @Override
-    public boolean addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType) {
+    public Optional<Long> addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType) {
         List<UserJPA> participants = new ArrayList<>();
         List<UserJPA> admins = new ArrayList<>();
 
-        // Populate the list of participants
+        // Añadir los participantes al chat
         for (Long participantId : participantIds) {
             Optional<UserJPA> userOptional = userRepository.findById(participantId);
             if (userOptional.isPresent()) {
                 participants.add(userOptional.get());
             } else {
-                throw new IllegalArgumentException("Participant user with ID " + participantId + " not found.");
+                return Optional.empty();
             }
         }
 
-        // Populate the list of admins
+        // Añadir al administrador del chat
         Optional<UserJPA> adminOptional = userRepository.findById(adminId);
         if (adminOptional.isPresent()) {
             admins.add(adminOptional.get());
         } else {
-            throw new IllegalArgumentException("Administrator user with ID " + adminId + " not found.");
+            return Optional.empty();
         }
 
         // Crear el objeto ChatJPA
@@ -102,10 +102,10 @@ public class ChatAdapter implements ChatPort {
                 .admins(admins)
                 .build();
 
-        // Save the chat in the database
-        chatRepository.save(chat);
+        // Guardar el chat en la base de datos
+        ChatJPA savedChat = chatRepository.save(chat);
 
-        return true;
+        return Optional.of(savedChat.getId());
     }
 
 }
