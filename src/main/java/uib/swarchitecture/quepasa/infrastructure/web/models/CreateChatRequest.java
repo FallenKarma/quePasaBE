@@ -12,5 +12,4 @@ public class CreateChatRequest {
     private String name;
     private ChatType type;
     private List<Long> usersId;
-    private List<Long> adminId;
 }
