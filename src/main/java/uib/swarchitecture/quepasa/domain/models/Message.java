@@ -18,7 +18,6 @@ public class Message implements Comparable<Message> {
     private String content;
     private LocalDateTime timestamp;
     private MessageType type;
-    private User author;
 
     @Override
     public int compareTo(Message o) {

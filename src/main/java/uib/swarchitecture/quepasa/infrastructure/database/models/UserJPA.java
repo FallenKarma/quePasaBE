@@ -1,13 +1,20 @@
 package uib.swarchitecture.quepasa.infrastructure.database.models;
 
 import jakarta.persistence.*;
+
 import java.util.List;
+
 import lombok.*;
 
 @Entity
 @Table(name = "users") // user es una palabra reservada
-@Getter @Setter @NoArgsConstructor @ToString  // Lombok genera getters, setters, toString y constructor sin parametros
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString  // Lombok genera getters, setters, toString y constructor sin parametros
 @EqualsAndHashCode(of = "id")  // Solo usa 'id' para equals y hashCode
+@Builder
 public class UserJPA {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
