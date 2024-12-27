@@ -36,12 +36,20 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message sendMessage(long chatId, SendMessageRequest data, String authentication) {
         long userId = authPort.getIdFromAuthentication(authentication);
+
+        if (userId <= 0){
+            throw new IllegalArgumentException("userId invalido");
+        }
         // Guardar el mensaje
         return messagePort.saveMessage(data, chatId, userId);
     }
 
     @Override
     public List<Message> getMessagesFromChat(long chatId) {
+        if (chatId <= 0){
+            throw new IllegalArgumentException("chatid invalido");
+        }
+
         // Obtener mensajes del chat
         return messagePort.getMessagesFromChat(chatId);
     }

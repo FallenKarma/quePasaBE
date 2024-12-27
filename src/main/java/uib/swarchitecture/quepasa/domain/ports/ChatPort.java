@@ -17,4 +17,6 @@ public interface ChatPort {
     LocalDateTime getChatCreationTimestamp(long chatId);
 
     Optional<Long> addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType);
+
+    boolean existsByIdAndUserId(long chatId, long userId);
 }

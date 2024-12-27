@@ -8,4 +8,5 @@ import java.util.List;
 public interface ChatRepository extends CrudRepository<ChatJPA, Long> {
     List<ChatJPA> findByParticipants_Id(long userId);
 
+    boolean existsByIdAndParticipants_Id(long chatId, long userId);
 }

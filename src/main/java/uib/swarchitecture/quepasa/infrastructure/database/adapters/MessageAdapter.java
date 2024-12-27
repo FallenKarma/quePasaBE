@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import uib.swarchitecture.quepasa.domain.models.Chat;
 import uib.swarchitecture.quepasa.domain.models.Message;
+import uib.swarchitecture.quepasa.domain.models.User;
 import uib.swarchitecture.quepasa.domain.models.enums.ChatType;
 import uib.swarchitecture.quepasa.domain.models.enums.MessageType;
 import uib.swarchitecture.quepasa.domain.ports.MessagePort;
@@ -18,6 +19,7 @@ import uib.swarchitecture.quepasa.infrastructure.database.repository.ChatReposit
 import uib.swarchitecture.quepasa.infrastructure.database.repository.MessageRepository;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.UserRepository;
 import uib.swarchitecture.quepasa.infrastructure.web.models.SendMessageRequest;
+import uib.swarchitecture.quepasa.infrastructure.web.models.UserDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,7 +59,6 @@ public class MessageAdapter implements MessagePort {
         for (MessageJPA messageJPA : messageJPAS) {
             Message message = convertToMessage(messageJPA);
             messages.add(message);
-            System.out.println(message);
         }
 
         return messages;
@@ -106,11 +107,17 @@ public class MessageAdapter implements MessagePort {
     }
 
     private Message convertToMessage(MessageJPA messageJPA) {
+        UserDTO user = UserDTO.builder()
+                .id(messageJPA.getAuthor().getId())
+                .username(messageJPA.getAuthor().getUsername())
+                .build();
+
         return Message.builder()
                 .id(messageJPA.getId())
                 .content(messageJPA.getContent())
                 .timestamp(messageJPA.getTimestamp())
                 .type(convertMessageType(messageJPA.getType()))
+                .author(user)
                 .build();
     }
 
