@@ -11,5 +11,5 @@ public interface MessagePort {
     Optional<Message> getLastMessage(long chatId);
     Optional<Message> getMessageById(long messageId);
     Message saveMessage(SendMessageRequest message, long chatId, long userId);
-    List<Message> getMessagesFromChat(long chatId);
+    List<Message> getMessagesFromChat(long chatId, long userId);
 }

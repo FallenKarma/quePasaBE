@@ -128,4 +128,10 @@ public class ChatAdapter implements ChatPort {
         return chatRepository.existsByIdAndParticipants_Id(chatId, userId);
     }
 
+    @Override
+    public boolean existsById(long chatId) {
+        return chatRepository.existsById(chatId);
+    }
+
+
 }

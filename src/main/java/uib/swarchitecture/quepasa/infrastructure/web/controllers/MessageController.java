@@ -40,10 +40,10 @@ public class MessageController {
             boolean isOwned = chatService.isChatOwnedByUser(chatId, authentication);
 
             if (!isOwned) {
-                return new ResponseEntity<>(new ApiResponse<>("No tienes permiso para acceder a este chat."), HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(new ApiResponse<>("You are not allowed to access this chat."), HttpStatus.FORBIDDEN);
             }
 
-            List<Message> chatMessages = messageService.getMessagesFromChat(chatId);
+            List<Message> chatMessages = messageService.getMessagesFromChat(chatId, authentication);
             return new ResponseEntity<>(new ApiResponse<>(chatMessages), HttpStatus.OK);
 
         } catch (IllegalArgumentException e) {
@@ -65,7 +65,7 @@ public class MessageController {
             boolean isOwned = chatService.isChatOwnedByUser(chatId, authentication);
 
             if (!isOwned) {
-                return new ResponseEntity<>(new ApiResponse<>("No tienes permiso para acceder a este chat."), HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(new ApiResponse<>("You are not allowed to access this chat."), HttpStatus.FORBIDDEN);
             }
             // Llama al servicio para enviar el mensaje
             Message sentMessage = messageService.sendMessage(chatId, request, authentication);

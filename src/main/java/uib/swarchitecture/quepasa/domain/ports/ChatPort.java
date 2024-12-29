@@ -19,4 +19,6 @@ public interface ChatPort {
     Optional<Long> addChat(Long adminId, List<Long> participantIds, String chatName, ChatType chatType);
 
     boolean existsByIdAndUserId(long chatId, long userId);
+
+    boolean existsById(long chatId);
 }

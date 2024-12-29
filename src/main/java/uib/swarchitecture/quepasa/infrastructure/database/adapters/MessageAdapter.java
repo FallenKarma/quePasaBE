@@ -51,10 +51,12 @@ public class MessageAdapter implements MessagePort {
     }
 
     @Override
-    public List<Message> getMessagesFromChat(long chatId) {
+    public List<Message> getMessagesFromChat(long chatId, long userId) {
         Pageable pageable = PageRequest.of(0, 50); // Página 0, tamaño de página 1
         List<MessageJPA> messageJPAS = messageRepository.findMessagesByChatId(chatId, pageable);
         List<Message> messages = new ArrayList<>();
+
+        markMessagesAsRead(messageJPAS, userId);
 
         for (MessageJPA messageJPA : messageJPAS) {
             Message message = convertToMessage(messageJPA);
@@ -81,7 +83,22 @@ public class MessageAdapter implements MessagePort {
         return convertToMessage(savedMessage);
     }
 
+    public void markMessagesAsRead(List<MessageJPA> messages, long userId) {
+        // Obtener el usuario que está leyendo los mensajes
+        UserJPA user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("user not found wiht id " + userId));
 
+        // Iterar sobre la lista de mensajes
+        for (MessageJPA message : messages) {
+            // Añadir al usuario a la lista de lectores si no está ya en ella
+            if (!message.getReaders().contains(user)) {
+                message.getReaders().add(user);
+            }
+        }
+
+        // Guardar todos los mensajes con los cambios en la base de datos
+        messageRepository.saveAll(messages);
+    }
 
     @Override
     public Optional<Message> getMessageById(long messageId) {
