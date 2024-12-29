@@ -9,4 +9,6 @@ public interface ChatService {
     List<UserChat> getUserChats(String authentication);
 
     UserChat createChat(CreateChatRequest createChatRequest, String authentication);
+
+    boolean isChatOwnedByUser(long chatId, String authentication);
 }

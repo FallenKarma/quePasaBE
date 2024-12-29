@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import uib.swarchitecture.quepasa.infrastructure.web.models.UserDTO;
 
 @Data // Genera getters, setters, toString, equals, hashCode
 @NoArgsConstructor // Genera un constructor sin argumentos
@@ -18,7 +19,7 @@ public class Message implements Comparable<Message> {
     private String content;
     private LocalDateTime timestamp;
     private MessageType type;
-    private User author;
+    private UserDTO author;
 
     @Override
     public int compareTo(Message o) {

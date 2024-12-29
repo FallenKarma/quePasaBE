@@ -19,5 +19,5 @@ public interface MessageRepository extends CrudRepository<MessageJPA, Long> {
     int countUnreadMessagesByChatIdAndUserId(@Param("chatId") long chatId, @Param("userId") long userId);
 
     @Query("SELECT m FROM MessageJPA m WHERE m.chat.id = :chatId ORDER BY m.timestamp DESC")
-    List<MessageJPA> findLastMessagesByChatId(@Param("chatId") long chatId, Pageable pageable);
+    List<MessageJPA> findMessagesByChatId(@Param("chatId") long chatId, Pageable pageable);
 }
