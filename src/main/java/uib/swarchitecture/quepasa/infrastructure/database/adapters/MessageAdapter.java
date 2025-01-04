@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-import uib.swarchitecture.quepasa.domain.models.Chat;
 import uib.swarchitecture.quepasa.domain.models.Message;
-import uib.swarchitecture.quepasa.domain.models.User;
-import uib.swarchitecture.quepasa.domain.models.enums.ChatType;
 import uib.swarchitecture.quepasa.domain.models.enums.MessageType;
 import uib.swarchitecture.quepasa.domain.ports.MessagePort;
 import uib.swarchitecture.quepasa.infrastructure.database.models.ChatJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.models.MessageJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.models.UserJPA;
-import uib.swarchitecture.quepasa.infrastructure.database.models.enums.ChatTypeJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.models.enums.MessageTypeJPA;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.ChatRepository;
 import uib.swarchitecture.quepasa.infrastructure.database.repository.MessageRepository;
@@ -78,8 +74,13 @@ public class MessageAdapter implements MessagePort {
         // Construir MessageJPA
         MessageJPA messageJPA = convertToMessageJPA(message, chat, author);
 
+        // Marcar mensaje como leido para el autor
+        messageJPA.setReaders(new ArrayList<>());
+        messageJPA.getReaders().add(author);
+
         // Guardar en la base de datos
         MessageJPA savedMessage = messageRepository.save(messageJPA);
+
         return convertToMessage(savedMessage);
     }
 
