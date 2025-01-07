@@ -29,8 +29,22 @@ To run the application, you'll need Docker installed on your machine. Follow the
    ```bash
    docker --version
 4. Install Java 21
-  Ensure you have Java 21 installed. Verify the installation by running:
+  Ensure you have Java 21 installed. You can download it from [Oracle JDK](https://www.oracle.com/java/technologies/downloads/). Verify the installation by running:
    ```bash
     java -version
 ## Getting started
+Follow these steps to set up and run the application:
+1. Clone the repository and change directory to the new folder:
+   ```bash
+   git clone https://github.com/Analisi-i-Arquitectura-de-Software/projecte-02-back.git
+   cd projecte-02-back
+2. Build the application using Maven:
+   ```bash
+   mvn clean install
+3. Once the build is successful, run the application:
+   mvn spring-boot:run
+4. The application will start, the server will be available at: http://localhost:8080
+   
+   
+   
    
