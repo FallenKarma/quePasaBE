@@ -28,10 +28,11 @@ To run the application, you'll need Docker installed on your machine. Follow the
 3. Verify the installation by running the following command in your terminal:
    ```bash
    docker --version
-4. Install Java 21
-  Ensure you have Java 21 installed. You can download it from [Oracle JDK](https://www.oracle.com/java/technologies/downloads/). Verify the installation by running:
+### 2. Install Java 21
+Ensure you have Java 21 installed. You can download it from [Oracle JDK](https://www.oracle.com/java/technologies/downloads/). Verify the installation by running:
    ```bash
-    java -version
+            java -version
+   ```
 ## Getting started
 Follow these steps to set up and run the application:
 1. Clone the repository and change directory to the new folder:
