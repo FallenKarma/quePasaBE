@@ -45,17 +45,17 @@ Follow these steps to set up and run the application:
     ```bash
    mvn spring-boot:run
 5. The application will start, the server will be available at: http://localhost:8080
-## API Endpoints
-Authentication Endpoints
-   POST /auth/register: Register a new user.
-   POST /auth/login: Log in an existing user.
-   POST /auth/refresh: Refresh the access token.
-Message Endpoints
-   GET /api/{chatId}/messages: Get messages list for a given chat.
-   POST /api/{chatId}/messages: Send messages inside a given chat.
-Chat Endpoints
-   GET /api/chats: Get unread messages from all chats.
-   POST /api/chats: Create a new chat.
+### API Endpoints
+## Authentication Endpoints
+   - POST /auth/register : Register a new user.
+   - POST /auth/login : Log in an existing user.
+   - POST /auth/refresh : Refresh the access token.
+## Message Endpoints
+   - GET /api/{chatId}/messages : Get messages list for a given chat.
+   - POST /api/{chatId}/messages : Send messages inside a given chat.
+## Chat Endpoints
+   - GET /api/chats : Get unread messages from all chats.
+   - POST /api/chats : Create a new chat.
    
    
    
