@@ -46,6 +46,7 @@ Follow these steps to set up and run the application:
     ```bash
    mvn spring-boot:run
 5. The application will start, the server will be available at: http://localhost:8080
+   
 ### API Endpoints
 ## Authentication Endpoints
    - POST /auth/register : Register a new user.
@@ -59,21 +60,21 @@ Follow these steps to set up and run the application:
    - POST /api/chats : Create a new chat.
    
 ## Database model
-![image](https://github.com/user-attachments/assets/c0f15c28-39a9-4aff-aadf-2c129693fff9)
+![image](https://github.com/user-attachments/assets/82ce5bcc-2c2c-4473-9054-db37d994f9c3)
 
 ## Use case diagram
-![image](https://github.com/user-attachments/assets/962b16ec-9434-4619-acf6-9a578801fa77)
+![image](https://github.com/user-attachments/assets/1517f37a-d36a-4699-80df-60d0714ce298)
 
 ## C4 model
 
-# Context
-![image](https://github.com/user-attachments/assets/26802c9d-bf93-4c48-b4fd-fc138c6c0dd2)
+### Context
+![image](https://github.com/user-attachments/assets/66828cf8-f3cc-4cb5-bad7-c28cac3de747)
 
-# Containers
-![image](https://github.com/user-attachments/assets/9f9ad6be-c2da-4c9a-bc92-18883227b039)
+### Containers
+![image](https://github.com/user-attachments/assets/2bcb549b-81ff-4222-a02a-dfe9f672722d)
 
-# Components
-![image](https://github.com/user-attachments/assets/498de9c2-ffde-4304-b3fe-62900d4c7a91)
+### Components
+![image](https://github.com/user-attachments/assets/15304270-2572-49a6-aef6-de8ed40833fb)
 
 
 
