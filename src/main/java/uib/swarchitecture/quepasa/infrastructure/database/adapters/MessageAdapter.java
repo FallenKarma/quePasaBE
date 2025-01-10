@@ -1,5 +1,6 @@
 package uib.swarchitecture.quepasa.infrastructure.database.adapters;
 
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -87,12 +88,15 @@ public class MessageAdapter implements MessagePort {
     public void markMessagesAsRead(List<MessageJPA> messages, long userId) {
         // Obtener el usuario que está leyendo los mensajes
         UserJPA user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("user not found wiht id " + userId));
+                .orElseThrow(() -> new NoSuchElementException("user not found with id " + userId));
 
         // Iterar sobre la lista de mensajes
         for (MessageJPA message : messages) {
             // Añadir al usuario a la lista de lectores si no está ya en ella
-            if (!message.getReaders().contains(user)) {
+            if (message.getReaders() == null){
+                message.setReaders(new ArrayList<>());
+                message.getReaders().add(user);
+            } else if (!message.getReaders().contains(user)) {
                 message.getReaders().add(user);
             }
         }

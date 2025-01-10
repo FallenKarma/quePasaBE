@@ -12,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString  // Lombok genera getters, setters, toString y constructor sin parametros
+@ToString(exclude = {"read", "messagesSent", "chats", "adminChats"})  // Lombok genera getters, setters, toString y constructor sin parametros
 @EqualsAndHashCode(of = "id")  // Solo usa 'id' para equals y hashCode
 @Builder
 public class UserJPA {
