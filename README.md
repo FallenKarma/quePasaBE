@@ -60,7 +60,7 @@ Follow these steps to set up and run the application:
    - POST /api/chats : Create a new chat.
    
 ## Database model
-![image](https://github.com/user-attachments/assets/82ce5bcc-2c2c-4473-9054-db37d994f9c3)
+![image](https://github.com/user-attachments/assets/7de8ddfd-f024-46ed-b1b1-61c826172efc)
 
 ## Use case diagram
 ![image](https://github.com/user-attachments/assets/1517f37a-d36a-4699-80df-60d0714ce298)
