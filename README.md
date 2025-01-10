@@ -52,12 +52,31 @@ Follow these steps to set up and run the application:
    - POST /auth/login : Log in an existing user.
    - POST /auth/refresh : Refresh the access token.
 ## Message Endpoints
-   - GET /api/{chatId}/messages : Get messages list for a given chat.
-   - POST /api/{chatId}/messages : Send messages inside a given chat.
+   - GET /api/messages/{chatId}/messages : Get messages list for a given chat.
+   - POST /api/messages/{chatId}/messages : Send messages inside a given chat.
 ## Chat Endpoints
    - GET /api/chats : Get unread messages from all chats.
    - POST /api/chats : Create a new chat.
    
-   
+## Database model
+![image](https://github.com/user-attachments/assets/c0f15c28-39a9-4aff-aadf-2c129693fff9)
+
+## Use case diagram
+![image](https://github.com/user-attachments/assets/962b16ec-9434-4619-acf6-9a578801fa77)
+
+## C4 model
+
+# Context
+![image](https://github.com/user-attachments/assets/26802c9d-bf93-4c48-b4fd-fc138c6c0dd2)
+
+# Containers
+![image](https://github.com/user-attachments/assets/9f9ad6be-c2da-4c9a-bc92-18883227b039)
+
+# Components
+![image](https://github.com/user-attachments/assets/498de9c2-ffde-4304-b3fe-62900d4c7a91)
+
+
+
+
    
    
