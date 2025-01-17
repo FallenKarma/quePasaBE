@@ -14,10 +14,10 @@ import java.util.Optional;
 public interface MessageRepository extends CrudRepository<MessageJPA, Long> {
 
     @Query("SELECT COUNT(DISTINCT m) FROM MessageJPA m " +
-            "JOIN m.readers r " +
-            "WHERE m.chat.id = :chatId AND r.id != :userId")
+            "LEFT JOIN m.readers r " +
+            "WHERE m.chat.id = :chatId AND :userId NOT IN (SELECT u.id FROM m.readers u)")
     int countUnreadMessagesByChatIdAndUserId(@Param("chatId") long chatId, @Param("userId") long userId);
 
     @Query("SELECT m FROM MessageJPA m WHERE m.chat.id = :chatId ORDER BY m.timestamp DESC")
-    List<MessageJPA> findLastMessagesByChatId(@Param("chatId") long chatId, Pageable pageable);
+    List<MessageJPA> findMessagesByChatId(@Param("chatId") long chatId, Pageable pageable);
 }

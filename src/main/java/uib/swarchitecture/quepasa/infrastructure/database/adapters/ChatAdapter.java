@@ -123,4 +123,15 @@ public class ChatAdapter implements ChatPort {
         return Optional.of(savedChat.getId());
     }
 
+    @Override
+    public boolean existsByIdAndUserId(long chatId, long userId) {
+        return chatRepository.existsByIdAndParticipants_Id(chatId, userId);
+    }
+
+    @Override
+    public boolean existsById(long chatId) {
+        return chatRepository.existsById(chatId);
+    }
+
+
 }

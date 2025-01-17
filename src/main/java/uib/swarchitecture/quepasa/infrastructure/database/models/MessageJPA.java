@@ -12,8 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString  // Lombok genera getters, setters, toString y constructor sin parametros
+@AllArgsConstructor
+@ToString(exclude = "readers")  // Lombok genera getters, setters, toString y constructor sin parametros
 @EqualsAndHashCode(of = "id")  // Solo usa 'id' para equals y hashCode
+@Builder
 public class MessageJPA {
 
     @Id

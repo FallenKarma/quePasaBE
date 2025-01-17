@@ -117,4 +117,12 @@ public class ChatServiceImpl implements ChatService {
                 .lastActionTimestamp(createdAt)
                 .build();
     }
+
+    public boolean isChatOwnedByUser(long chatId, String authentication) {
+        // Extraer el userId del token de autenticación
+        long userId = authPort.getIdFromAuthentication(authentication);
+
+        // Verificar en el repositorio si el chat pertenece al usuario
+        return chatPort.existsByIdAndUserId(chatId, userId);
+    }
 }
